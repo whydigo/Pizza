@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 const Categories = ({ value, onChangeCategory }) => {
   const categories = [
@@ -16,6 +16,7 @@ const Categories = ({ value, onChangeCategory }) => {
         {categories.map((categoryName, i) => {
           return (
             <li
+              key={i}
               onClick={() => onChangeCategory(i)}
               className={value === i ? "active" : ""}
             >
