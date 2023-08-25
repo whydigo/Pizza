@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import Categories from "../Categories";
 import Sort from "../Sort";
 import Skeleton from "../PizzaBlock/Skeleton";
 import PizzaBlock from "../PizzaBlock";
 import { Pagination } from "../Pagination";
+import { SearchContext } from "../../App";
 
-const Home = ({ searchValue }) => {
+const Home = () => {
   const [items, setItems] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const [categoryId, setCategoryId] = useState(0);
@@ -15,6 +16,7 @@ const Home = ({ searchValue }) => {
     name: "популярности",
     sortProperty: "rating",
   });
+  const { searchValue } = useContext(SearchContext);
 
   useEffect(() => {
     setLoading(true);
