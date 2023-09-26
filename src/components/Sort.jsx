@@ -14,7 +14,6 @@ export const sortList = [
 export const Sort = () => {
   const dispatch = useDispatch();
   const sort = useSelector((state) => state.filter.sort);
-
   const [open, setOpen] = useState(false);
 
   const onClickListItem = (obj) => {

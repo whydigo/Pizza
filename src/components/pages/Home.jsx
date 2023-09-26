@@ -16,14 +16,14 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const isSearch = useRef(false);
-  const isMounted = useRef(false);
   const { categoryId, sort, currentPage } = useSelector(
     (state) => state.filter
   );
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isSearch = useRef(false);
+  const isMounted = useRef(false);
   const [items, setItems] = useState([]);
   const [isLoading, setLoading] = useState(true);
   const { searchValue } = useContext(SearchContext);
@@ -37,12 +37,12 @@ const Home = () => {
   };
 
   const fetchPizzas = () => {
-    setLoading(true);
-
-    const sortBy = sort.sortProperty.replace("-", "");
-    const order = sort.sortProperty.includes("-") ? "asc" : "desc";
     const category = categoryId > 0 ? `category=${categoryId}` : "";
+    const order = sort.sortProperty.includes("-") ? "asc" : "desc";
     const search = searchValue ? `&search=${searchValue}` : "";
+    const sortBy = sort.sortProperty.replace("-", "");
+
+    setLoading(true);
 
     axios
       .get(
