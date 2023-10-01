@@ -1,1 +1,1 @@
-Pizza project on React
+React pizza project 
