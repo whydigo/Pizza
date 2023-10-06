@@ -8,25 +8,23 @@ import { Pagination } from "../Pagination";
 import { SearchContext } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  selectFilter,
   setCategoryId,
   setCurrentPage,
   setFilters,
 } from "../../redux/slices/filterSlice";
 import { useNavigate } from "react-router-dom";
-import { fetchPizzas } from "../../redux/slices/pizzaSlice";
+import { fetchPizzas, selectPizzaData } from "../../redux/slices/pizzaSlice";
 
 const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isSearch = useRef(false);
   const isMounted = useRef(false);
-  const { items, status } = useSelector((state) => state.pizza);
 
-  const { categoryId, sort, currentPage } = useSelector(
-    (state) => state.filter
-  );
+  const { items, status } = useSelector(selectPizzaData);
+  const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
 
-  const { searchValue } = useContext(SearchContext);
 
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id));
@@ -88,6 +86,7 @@ const Home = () => {
   const skeleton = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
   ));
+  console.log(status);
 
   return (
     <div>
@@ -99,7 +98,10 @@ const Home = () => {
       {status === "error" ? (
         <div className="content__error-info"> 
           <h2>Произошла ошибка 😕</h2>
-          <p>К сожалению, не удалось получить питсы. Попробуйте повторить попытку позже.</p>
+          <p>
+            К сожалению, не удалось получить питсы. Попробуйте повторить попытку
+            позже.
+          </p>
         </div>
       ) : (
         <div className="content__items">
