@@ -86,7 +86,6 @@ const Home = () => {
   const skeleton = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
   ));
-  console.log(status);
 
   return (
     <div>
