@@ -12,9 +12,14 @@ const Search = () => {
   const inputRef = useRef();
 
   const onClickClear = () => {
-    dispatch(setSearchValue(''));
+    dispatch(setSearchValue(""));
     setValue("");
     inputRef.current.focus();
+  };
+
+  const onChangeInput = (e) => {
+    setValue(e.target.value);
+    updateSearchValue(e.target.value);
   };
 
   const updateSearchValue = useCallback(
@@ -23,11 +28,6 @@ const Search = () => {
     }, 250),
     []
   );
-
-  const onChangeInput = (e) => {
-    setValue(e.target.value);
-    updateSearchValue(e.target.value);
-  };
 
   return (
     <div className={cls.root}>
