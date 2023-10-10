@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import qs from "qs";
 import Categories from "../Categories";
 import { Sort, sortList } from "../Sort";
 import Skeleton from "../PizzaBlock/Skeleton";
 import PizzaBlock from "../PizzaBlock";
 import { Pagination } from "../Pagination";
-import { SearchContext } from "../../App";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectFilter,
@@ -13,7 +12,7 @@ import {
   setCurrentPage,
   setFilters,
 } from "../../redux/slices/filterSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchPizzas, selectPizzaData } from "../../redux/slices/pizzaSlice";
 
 const Home = () => {
@@ -23,8 +22,8 @@ const Home = () => {
   const isMounted = useRef(false);
 
   const { items, status } = useSelector(selectPizzaData);
-  const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
-
+  const { categoryId, sort, currentPage, searchValue } =
+    useSelector(selectFilter);
 
   const onChangeCategory = (id) => {
     dispatch(setCategoryId(id));
@@ -82,20 +81,24 @@ const Home = () => {
     isMounted.current = true;
   }, [categoryId, sort.sortProperty, searchValue, currentPage]);
 
-  const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+  const pizzas = items.map((obj) => (
+    <Link to={`/pizza/${obj.id}`}>
+      <PizzaBlock key={obj.id} {...obj} />
+    </Link>
+  ));
   const skeleton = [...new Array(6)].map((_, index) => (
     <Skeleton key={index} />
   ));
 
   return (
-    <div>
+    <div className="container">
       <div className="content__top">
         <Categories value={categoryId} onChangeCategory={onChangeCategory} />
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       {status === "error" ? (
-        <div className="content__error-info"> 
+        <div className="content__error-info">
           <h2>Произошла ошибка 😕</h2>
           <p>
             К сожалению, не удалось получить питсы. Попробуйте повторить попытку
