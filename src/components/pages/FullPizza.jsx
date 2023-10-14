@@ -19,7 +19,6 @@ const FullPizza = () => {
         navigate("/");
       }
     }
-
     fetchPizza();
   }, []);
 
