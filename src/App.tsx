@@ -7,6 +7,7 @@ import MainLoyaout from "./layouts/MainLoyaout";
 
 function App() {
   return (
+    
     <Routes>
       <Route path="/" element={<MainLoyaout />}>
         <Route path="" element={<Home />} />
@@ -15,6 +16,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
+    
   );
 }
 
